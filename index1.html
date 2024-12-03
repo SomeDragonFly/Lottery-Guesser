@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin: 15px 0;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Number Guessing Game</h1>
+        <p>Guess a number between <span id="min">1</span> and <span id="max">100</span></p>
+        <input type="number" id="guessInput" placeholder="Enter your guess">
+        <button onclick="checkGuess()">Guess</button>
+        <button onclick="resetGame()">Reset</button>
+        <p class="message" id="message"></p>
+    </div>
+
+    <script>
+        // Initialize game variables
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        const min = 1;
+        const max = 100;
+
+        function checkGuess() {
+            const guess = Number(document.getElementById("guessInput").value);
+            const message = document.getElementById("message");
+
+            if (!guess || guess < min || guess > max) {
+                message.textContent = `Please enter a number between ${min} and ${max}.`;
+                message.style.color = "red";
+                return;
+            }
+
+            if (guess === randomNumber) {
+                message.textContent = "🎉 Congratulations! You guessed the correct number!";
+                message.style.color = "green";
+            } else if (guess > randomNumber) {
+                message.textContent = "Too high! Try again.";
+                message.style.color = "orange";
+            } else {
+                message.textContent = "Too low! Try again.";
+                message.style.color = "orange";
+            }
+        }
+
+        function resetGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            document.getElementById("guessInput").value = "";
+            document.getElementById("message").textContent = "";
+        }
+    </script>
+</body>
+</html>
